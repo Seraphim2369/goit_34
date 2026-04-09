@@ -72,7 +72,7 @@ chi2, p_val_chi2, dof, expected = stats.chi2_contingency(con_table)
 print(f'Chi-Squared Test:\nChi2 Statistic: {chi2}\nP-Value: {p_val_chi2}\n')
 
 #Visualizing
-plt.figure(figsize=(15, 5))
+plt.figure(figsize=(15, 10000))
 
 #T-Test result visualization
 plt.subplot(1, 3, 1)
