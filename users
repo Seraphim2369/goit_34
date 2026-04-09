@@ -1,0 +1,5 @@
+users = df['test_group'].value_counts()
+users_A = users['a']
+users_B = users['b']
+print(f'Group A: ', users_A)
+print(f'Group B: ',users_B)
