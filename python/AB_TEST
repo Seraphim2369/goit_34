@@ -1,0 +1,16 @@
+from statsmodels.stats.proportion import proportions_ztest
+
+alpha = 0.05
+
+conversions = [conv_B, conv_A]
+samples = [n_B, n_A]
+
+statistic, pvalue = proportions_ztest(conversions, samples, alternative='larger')
+
+print(f'z-statistic: {round(statistic, 2)}, p-value: {round(pvalue, 4)}')
+
+if pvalue < alpha:
+    print('The difference is statistically significant, Null Hypothesis is rejected.')
+    
+else:
+    print('The difference is insignificant, Null Hypothesis cannot rejected.')
