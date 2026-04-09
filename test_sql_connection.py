@@ -26,3 +26,5 @@ with engine.connect() as conn:
     result = conn.execute(text("SELECT @@VERSION"))
     for row in result:
         print(row[0])
+
+# Зміни внесла Людмила. Прошу надіслати значок акули!
