@@ -45,7 +45,7 @@ def permutation_test(df1, df2, n_permutations):
 
     return p_value
 
-n_permutations = 2000
+n_permutations = 700
 
 df1 = treatment['converted_int']
 df2 = control['converted_int']
