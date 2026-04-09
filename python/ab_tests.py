@@ -8,7 +8,7 @@ import pyarrow
 import spark
 import boto3
 ## Кава з вафлями
-
+## Дуже важливі зміни в коментарі
 
 #%%
 #df=pd.read_csv('/Users/denistkachenko/Documents/marketing_AB.csv')
