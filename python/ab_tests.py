@@ -94,4 +94,18 @@ plt.ylabel('Count', fontsize=13)
 plt.tight_layout()
 plt.show()
 
+import numpy as np
+import matplotlib.pyplot as plt
+
+means = conversion_rate
+counts = users
+
+se = np.sqrt(means * (1 - means) / counts)
+ci = 1.96 * se
+
+plt.figure(figsize=(6,5))
+plt.bar(means.index, means.values, yerr=ci.values, capsize=5, color='green')
+plt.title('Conversion Rate by Group (95% CI)')
+plt.ylabel('Conversion Rate')
+plt.show()
 
