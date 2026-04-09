@@ -11,19 +11,7 @@ CREATE TABLE IF NOT EXISTS sales.customers (
                                                CHECK (status IN ('active', 'inactive'))
 );
 
--- Child table referencing parent, with composite unique key
-CREATE TABLE IF NOT EXISTS sales.orders (
-                                            order_id         BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-                                            customer_id      BIGINT NOT NULL,
-                                            order_number     VARCHAR(50) NOT NULL,
-                                            order_date       DATE NOT NULL DEFAULT CURRENT_DATE,
-                                            total_amount     NUMERIC(12,2) NOT NULL DEFAULT 0,
-                                            CONSTRAINT uq_orders_order_number UNIQUE (order_number),
-                                            CONSTRAINT fk_orders_customer
-                                                FOREIGN KEY (customer_id)
-                                                    REFERENCES sales.customers(customer_id)
-                                                    ON UPDATE CASCADE
-                                                    ON DELETE RESTRICT
+
 );
 
 -- Junction table (many-to-many)
