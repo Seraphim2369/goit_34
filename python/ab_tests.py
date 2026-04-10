@@ -8,10 +8,8 @@ import duckdb
 import pyarrow
 import spark
 import boto3
-## Кава з вафлями
-## Hello world
+## New try test commit
 
-#!!
 #df=pd.read_csv('/Users/denistkachenko/Documents/marketing_AB.csv')
 #df.head()
 
