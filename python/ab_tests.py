@@ -45,7 +45,8 @@ def permutation_test(df1, df2, n_permutations):
     p_value = count / n_permutations
 
     return p_value
-
+#%%
+# додала коментар для перевірки Git
 n_permutations = 2000
 
 df1 = treatment['converted_int']
