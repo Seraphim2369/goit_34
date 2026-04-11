@@ -4,9 +4,9 @@ import matplotlib.pyplot as plt
 import scipy.stats as stats
 import pandas as pd
 import duckdb
-import pyarrow
+import pyarrow as pa
 import spark
-import boto3
+import boto3 as s3
 ## Кава з вафлями
 
 
