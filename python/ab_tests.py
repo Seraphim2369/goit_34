@@ -1,35 +1,33 @@
-787#%%
-#!!
-import numpy as np
-import matplotlib.pyplot as plt
-import scipy.stats as stats
-import pandas as pd
-import duckdb
-import pyarrow
-import spark
+import seaborn as sns
 import boto3
-## Кава з вафлями
-## Hello world
-
+import spark
+import pyarrow
+import duckdb
+import pandas as pd
+import scipy.stats as stats
+import matplotlib.pyplot as plt
+import numpy as np
+787  # %%
 #!!
-#df=pd.read_csv('/Users/denistkachenko/Documents/marketing_AB.csv')
-#df.head()
+
 
 if "Unnamed: 0" in df.columns:
 
-    df = df.drop(["Unnamed: 0"], axis =1)
+    df = df.drop(["Unnamed: 0"], axis=1)
 
 df.rename(columns=lambda x: x.strip().replace(" ", "_"), inplace=True)
 df.head(1)
-#%%
-df["converted_int"] = df['converted'].apply(lambda x:1 if x== True  else  0)
+# %%
+df["converted_int"] = df['converted'].apply(lambda x: 1 if x == True else 0)
 df["converted_int"].sum()
-#%%
+# %%
 treatment = df.query('test_group == "ad"')
 control = df.query('test_group == "psa"')
-#%%
+# %%
 
-#%%
+# %%
+
+
 def permutation_test(df1, df2, n_permutations):
     observed_diff = np.abs(np.mean(df1) - np.mean(df2))
     all_data = np.concatenate([df1, df2])
@@ -37,7 +35,8 @@ def permutation_test(df1, df2, n_permutations):
 
     for _ in range(n_permutations):
         np.random.shuffle(all_data)
-        new_diff = np.abs(np.mean(all_data[0:len(df1)]) - np.mean(all_data[len(df1):]))
+        new_diff = np.abs(
+            np.mean(all_data[0:len(df1)]) - np.mean(all_data[len(df1):]))
 
         if new_diff >= observed_diff:
             count += 1
@@ -45,6 +44,7 @@ def permutation_test(df1, df2, n_permutations):
     p_value = count / n_permutations
 
     return p_value
+
 
 n_permutations = 2000
 
@@ -60,38 +60,38 @@ else:
     print("We accept null hypothesis. There is no significant difference between the two groups.")
 
 
-#%%
-import seaborn as sns
+# %%
 
-#Performing t-test
-t_stat, p_val_t = stats.ttest_ind(treatment['converted_int'], control['converted_int'])
+# Performing t-test
+t_stat, p_val_t = stats.ttest_ind(
+    treatment['converted_int'], control['converted_int'])
 print(f'T-Test:\nT-Statistic: {t_stat}\nP-Value: {p_val_t}\n')
 
-#Performing chi-squared test
+# Performing chi-squared test
 con_table = pd.crosstab(df['test_group'], df['converted_int'])
 chi2, p_val_chi2, dof, expected = stats.chi2_contingency(con_table)
 print(f'Chi-Squared Test:\nChi2 Statistic: {chi2}\nP-Value: {p_val_chi2}\n')
 
-#Visualizing
+# Visualizing
 plt.figure(figsize=(10, 4))
 
-#T-Test result visualization
+# T-Test result visualization
 plt.subplot(1, 3, 1)
-sns.distplot(treatment['converted_int'], hist = False, kde = True, color = 'blue', label="Treatment Converted")
-sns.distplot(control['converted_int'], hist = False, kde = True, color = 'red', label="Control Converted")
-plt.title('T-Test Result',fontsize=15)
+sns.distplot(treatment['converted_int'], hist=False,
+             kde=True, color='blue', label="Treatment Converted")
+sns.distplot(control['converted_int'], hist=False,
+             kde=True, color='red', label="Control Converted")
+plt.title('T-Test Result', fontsize=15)
 plt.xlabel('Converted or not', fontsize=13)
 plt.ylabel('Density', fontsize=13)
 plt.legend()
 
-#chi-square result visualization
+# chi-square result visualization
 plt.subplot(1, 3, 2)
 sns.countplot(x='converted_int', hue='test_group', data=df)
-plt.title('Chi-squared Test Result',fontsize=15)
+plt.title('Chi-squared Test Result', fontsize=15)
 plt.xlabel('Converted or not', fontsize=13)
 plt.ylabel('Count', fontsize=13)
 
 plt.tight_layout()
 plt.show()
-
-
