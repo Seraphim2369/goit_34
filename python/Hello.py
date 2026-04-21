@@ -1,2 +1,4 @@
-#Hello
-#changes unpossible
+# Hello
+# changes unpossible
+# тест видно????
+print("Hello, World!")
